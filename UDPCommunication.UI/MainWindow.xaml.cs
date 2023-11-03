@@ -27,7 +27,6 @@ namespace UDPCommunication.UI
 
         public void deneme(int a)
         {
-
         }
     }
 }

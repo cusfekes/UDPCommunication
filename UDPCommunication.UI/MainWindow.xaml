@@ -5,9 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UDPCommunication.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="UDP Sender / Receiver" Height="550" Width="900">
     <Grid>
-        <DockPanel LastChildFill="False" Background="Red"/>
+        <DockPanel LastChildFill="False" Background="Red" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid Width="900" Background="Yellow">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions></Grid.RowDefinitions>
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="45"></RowDefinition>
+                        <RowDefinition Height="55"></RowDefinition>
+                        <RowDefinition Height="160"></RowDefinition>
+                        <RowDefinition Height="45"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0">Hedef IP Numarası</Label>
+                    <TextBox x:Name="txtDestIP" Grid.Row="1" Grid.Column="0" MaxLength="15"></TextBox>
+                    <Label Grid.Row="2" Grid.Column="0">Hedef Port Numarası</Label>
+                    <TextBox x:Name="txtDestPort" Grid.Row="3" Grid.Column="0" MaxLength="10"></TextBox>
+                    <Label Grid.Row="4" Grid.Column="0">Kaynak Port Numarası</Label>
+                    <TextBox x:Name="txtSourcePort" Grid.Row="5" Grid.Column="0" MaxLength="10"></TextBox>
+                    <Button x:Name="btnConnect" Grid.Row="6" Grid.Column="0" Width="70" Height="35" HorizontalAlignment="Right">Bağlan</Button>
+                    <Label Grid.Row="7" Grid.Column="0" Margin="0 25 0 0">Mesaj Metni</Label>
+                    <TextBox x:Name="txtMessage" Grid.Row="8" Grid.Column="0" MaxLength="255"></TextBox>
+                    <Button x:Name="btnSend" Grid.Row="9" Grid.Column="0" Width="70" Height="35" HorizontalAlignment="Right">Gönder</Button>
+                </Grid>
+            </Grid>
+        </DockPanel>
 
     </Grid>
 </Window>
