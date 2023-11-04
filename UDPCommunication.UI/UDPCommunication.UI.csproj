@@ -7,4 +7,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\UDPCommunication.Models\UDPCommunication.Models.csproj" />
+    <ProjectReference Include="..\UDPCommunication.Service\UDPCommunication.Service.csproj" />
+  </ItemGroup>
+
 </Project>
