@@ -21,23 +21,29 @@
                         <RowDefinition Height="25"></RowDefinition>
                         <RowDefinition Height="30"></RowDefinition>
                         <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="45"></RowDefinition>
+
                         <RowDefinition Height="30"></RowDefinition>
                         <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="45"></RowDefinition>
-                        <RowDefinition Height="55"></RowDefinition>
-                        <RowDefinition Height="160"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="140"></RowDefinition>
                         <RowDefinition Height="45"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Grid.Column="0">Hedef IP Adresi</Label>
-                    <TextBox x:Name="txtDestIP" Grid.Row="1" Grid.Column="0" MaxLength="15"></TextBox>
+                    <TextBox x:Name="txtSourceIP" Grid.Row="1" Grid.Column="0" MaxLength="15"></TextBox>
                     <Label Grid.Row="2" Grid.Column="0">Hedef Port Numarası</Label>
-                    <TextBox x:Name="txtDestPort" Grid.Row="3" Grid.Column="0" MaxLength="10"></TextBox>
-                    <Label Grid.Row="4" Grid.Column="0">Kaynak Port Numarası</Label>
-                    <TextBox x:Name="txtSourcePort" Grid.Row="5" Grid.Column="0" MaxLength="10"></TextBox>
-                    <Button x:Name="btnConnect" Grid.Row="6" Grid.Column="0" Width="70" Height="35" HorizontalAlignment="Right" Click="btnConnect_Click">Bağlan</Button>
-                    <Label Grid.Row="7" Grid.Column="0" Margin="0 25 0 0">Mesaj Metni</Label>
-                    <TextBox x:Name="txtMessage" Grid.Row="8" Grid.Column="0" MaxLength="255"></TextBox>
-                    <Button x:Name="btnSend" Grid.Row="9" Grid.Column="0" Width="70" Height="35" HorizontalAlignment="Right" Click="btnSend_Click">Gönder</Button>
+                    <TextBox x:Name="txtSourcePort" Grid.Row="3" Grid.Column="0" MaxLength="10"></TextBox>
+                    <Button x:Name="btnListen" Grid.Row="4" Grid.Column="0" Width="70" Height="35" HorizontalAlignment="Right" Click="btnListen_Click">Bağlan</Button>
+
+                    <Label Grid.Row="5" Grid.Column="0">Kaynak IP Adresi</Label>
+                    <TextBox x:Name="txtDestIP" Grid.Row="6" Grid.Column="0" MaxLength="15"></TextBox>
+                    <Label Grid.Row="7" Grid.Column="0">Kaynak Port Numarası</Label>
+                    <TextBox x:Name="txtDestPort" Grid.Row="8" Grid.Column="0" MaxLength="10"></TextBox>
+                    <Label Grid.Row="9" Grid.Column="0">Mesaj Metni</Label>
+                    <TextBox x:Name="txtMessage" Grid.Row="10" Grid.Column="0" MaxLength="255"></TextBox>
+                    <Button x:Name="btnSend" Grid.Row="11" Grid.Column="0" Width="70" Height="35" HorizontalAlignment="Right" Click="btnSend_Click">Gönder</Button>
                 </Grid>
 
                 <Grid Margin="10" Grid.Row="0" Grid.Column="1">
@@ -45,27 +51,33 @@
                         <RowDefinition Height="40"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                        <Grid Grid.Row="0" Grid.Column="0" Margin="5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"></ColumnDefinition>
-                                <ColumnDefinition Width="120"></ColumnDefinition>
-                                <ColumnDefinition Width="120"></ColumnDefinition>
-                                <ColumnDefinition Width="90"></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0">Zaman Aralığı</Label>
-                            <DatePicker Grid.Row="0" Grid.Column="1" />
-                            <DatePicker Grid.Row="0" Grid.Column="2" />
-                            <Button x:Name="btnFilter" Grid.Row="0" Grid.Column="3">Filtrele</Button>
-                            <Button x:Name="btnDelete" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Right" Width="100">Seçili Öğeyi Sil</Button>
-                        </Grid>
-                        
-                        <DataGrid Grid.Row="1" Grid.Column="0" Margin="5">
+                    <Grid Grid.Row="0" Grid.Column="0" Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="120"></ColumnDefinition>
+                            <ColumnDefinition Width="120"></ColumnDefinition>
+                            <ColumnDefinition Width="90"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0">Zaman Aralığı</Label>
+                        <DatePicker Grid.Row="0" Grid.Column="1" Margin="5 0 0 0" VerticalContentAlignment="Center" />
+                        <DatePicker Grid.Row="0" Grid.Column="2" Margin="5 0 0 0" VerticalContentAlignment="Center" />
+                        <Button x:Name="btnFilter" Grid.Row="0" Grid.Column="3" Margin="5 0 0 0">Filtrele</Button>
+                        <Button x:Name="btnDelete" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Right" Width="100" Height="30" VerticalAlignment="Top" Click="btnDelete_Click">Seçili Öğeyi Sil</Button>
+                    </Grid>
 
-                        </DataGrid>
+                    <DataGrid Name="gridSource" IsReadOnly="True" SelectionMode="Single" Grid.Row="1" Grid.Column="0" Margin="5">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tarih" Binding="{Binding DateTime}" Width="0.25*"/>
+                            <DataGridTextColumn Header="IP" Binding="{Binding IP}" Width="0.25*"/>
+                            <DataGridTextColumn Header="Tip" Binding="{Binding UDPOperationType}" Width="0.25*"/>
+                            <DataGridTextColumn Header="Mesaj" Binding="{Binding Message}" Width="0.25*"/>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
                 </Grid>
             </Grid>
         </DockPanel>

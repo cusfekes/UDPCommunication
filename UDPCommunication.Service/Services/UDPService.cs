@@ -6,28 +6,67 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using UDPCommunication.Models;
+using UDPCommunication.Models.CustomEventArgs;
+using UDPCommunication.Models.Enums;
 using UDPCommunication.Service.Interfaces;
 
 namespace UDPCommunication.Service.Services
 {
     public class UDPService : IUDPService
     {
-        public OperationResult<UdpClient> OpenConnection(string destinationIP, int destinationPort)
+        public event EventHandler<UDPPacketArgs> udpMessageFired;
+
+        private UdpClient udpClient;
+
+        public async Task SendMessageAsync(IPEndPoint endPoint, string message)
         {
-            OperationResult<UdpClient> result = new OperationResult<UdpClient>();
-            UdpClient udpClient = new UdpClient();
+            using UdpClient socket = new UdpClient();
+            
+            var data = Encoding.UTF8.GetBytes(message);
+            socket.Send(data, data.Length, endPoint);
+
+            string logString = $"{DateTime.Now} \r\n" +
+                               $"Sent to: {endPoint.Address}:{endPoint.Port} \r\n" +
+                               $"{message}\r\n";
+            udpMessageFired?.Invoke(this, new UDPPacketArgs(new UDPPacket(DateTime.Now, endPoint.Address, message, UDPOperationTypeEnum.Sent)));
+        }
+
+        public async Task StartListening(IPEndPoint endPoint)
+        {
+            udpClient = new UdpClient();
+            udpClient.Client.Bind(endPoint);
+            await ListenToUdp(endPoint);
+        }
+
+        private async Task ListenToUdp(IPEndPoint endPoint)
+        {
             try
             {
-                IPAddress ipAddress = IPAddress.Parse(destinationIP);
-                IPEndPoint ipEndPoint = new IPEndPoint(ipAddress, destinationPort);
-                udpClient.Connect(ipEndPoint);
-                result.SetSuccessMode(udpClient);
+                while (true)
+                {
+                    UdpReceiveResult datagram = await udpClient.ReceiveAsync();
+                    string message = Encoding.UTF8.GetString(datagram.Buffer);
+                    IPEndPoint from = datagram.RemoteEndPoint;
+
+                    string logString = $"{DateTime.Now} \r\n" +
+                                       $"Received from: {from.Address}:{from.Port} \r\n" +
+                                       $"{message}\r\n";
+                    udpMessageFired?.Invoke(this, new UDPPacketArgs(new UDPPacket(DateTime.Now, from.Address, message, UDPOperationTypeEnum.Receive)));
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                result.SetFailureMode(ex);
+                if (udpClient?.Client != null)
+                    udpClient?.Client?.Close();
+                udpClient?.Dispose();
             }
-            return result;
+        }
+
+        public async Task StopListening()
+        {
+            if (udpClient.Client != null)
+                udpClient.Client.Close();
+            udpClient.Dispose();
         }
     }
 }
