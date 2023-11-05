@@ -54,48 +54,6 @@ namespace UDPCommunication.UI
                 StartListen();
             else if (status == UDPListenStatusEnum.Listening)
                 StopListen();
-
-
-            //if (string.IsNullOrEmpty(txtDestIP.Text.Trim()))
-            //{
-            //    MessageBox.Show("Hedef IP adresi giriniz");
-            //    return;
-            //}
-            //if (string.IsNullOrEmpty(txtDestPort.Text.Trim()))
-            //{
-            //    MessageBox.Show("Hedef port numarası giriniz");
-            //    return;
-            //}
-            //if (string.IsNullOrEmpty(txtSourcePort.Text.Trim()))
-            //{
-            //    MessageBox.Show("Kaynak port numarası giriniz");
-            //    return;
-            //}
-            //int destPort, sourcePort;
-            //bool success = int.TryParse(txtDestPort.Text.Trim(), out destPort);
-            //if (!success)
-            //{
-            //    MessageBox.Show("Hedef port numarası için nümerik bir değer giriniz");
-            //    return;
-            //}
-            //success = int.TryParse(txtSourcePort.Text.Trim(), out sourcePort);
-            //if (!success)
-            //{
-            //    MessageBox.Show("Kaynak port numarası için nümerik bir değer giriniz");
-            //    return;
-            //}
-            //OperationResult<UdpClient> connection = new UDPService().OpenConnection(txtDestIP.Text.Trim(), destPort);
-            //if (connection.Success)
-            //{
-            //    udpClient = connection.Result;
-            //    ManageMessagePanelActivity(true);
-            //    txtMessage.Focus();
-            //}
-            //else
-            //{
-            //    MessageBox.Show(connection.Message);
-            //    ManageMessagePanelActivity(false);
-            //}
         }
 
         private async void StartListen()

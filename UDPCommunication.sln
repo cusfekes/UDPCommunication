@@ -5,9 +5,11 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UDPCommunication.UI", "UDPCommunication.UI\UDPCommunication.UI.csproj", "{3E4E44A8-D9AE-4452-A87C-852C7F925333}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDPCommunication.Models", "UDPCommunication.Models\UDPCommunication.Models.csproj", "{2B831C42-474D-4D60-9AF9-9EA7A3DC225B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UDPCommunication.Models", "UDPCommunication.Models\UDPCommunication.Models.csproj", "{2B831C42-474D-4D60-9AF9-9EA7A3DC225B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDPCommunication.Service", "UDPCommunication.Service\UDPCommunication.Service.csproj", "{AEB75422-FE8E-4250-91D2-B0F530FB50C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UDPCommunication.Service", "UDPCommunication.Service\UDPCommunication.Service.csproj", "{AEB75422-FE8E-4250-91D2-B0F530FB50C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDPCommunication.Test", "UDPCommunication.Test\UDPCommunication.Test.csproj", "{AFD3B064-80FA-4567-85F0-704C3ADC7C6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{AEB75422-FE8E-4250-91D2-B0F530FB50C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEB75422-FE8E-4250-91D2-B0F530FB50C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEB75422-FE8E-4250-91D2-B0F530FB50C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFD3B064-80FA-4567-85F0-704C3ADC7C6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFD3B064-80FA-4567-85F0-704C3ADC7C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFD3B064-80FA-4567-85F0-704C3ADC7C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFD3B064-80FA-4567-85F0-704C3ADC7C6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
