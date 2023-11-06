@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Configurations\Derece.hbm.xml" />
+    <None Remove="Mappings\Derece.hbm.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Configurations\Derece.hbm.xml">
+    <EmbeddedResource Include="Mappings\Derece.hbm.xml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
