@@ -11,6 +11,7 @@ using UDPCommunication.Models;
 using UDPCommunication.Models.CustomEventArgs;
 using UDPCommunication.Models.DomainModels;
 using UDPCommunication.Models.Enums;
+using UDPCommunication.Service.Interfaces;
 using UDPCommunication.Service.Services;
 using UDPCommunication.UI.Utils;
 
@@ -21,11 +22,11 @@ namespace UDPCommunication.UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private UDPService udpService;
-
         private CryptoService cryptoService;
+        private UDPService udpService;
+        private readonly IUDPLogService udpLogService;
 
-        public MainWindow()
+        public MainWindow(IUDPLogService _udpLogService)
         {
             InitializeComponent();
             txtSourceIP.Text = "127.0.0.1";
@@ -35,6 +36,7 @@ namespace UDPCommunication.UI
             txtDestPort.Text = "9090";
             btnListen.Tag = UDPListenStatusEnum.NotListening;
 
+            udpLogService = _udpLogService;
             udpService = new UDPService();
             cryptoService = new CryptoService();
             udpService.udpMessageFired += UdpMessageFired;
@@ -87,7 +89,7 @@ namespace UDPCommunication.UI
 
         private async void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            //List<Derece> list = new DataService().getItems();
+            List<UDPLog> list = udpLogService.GetAllItems().Result;
 
             //Derece derece = new Derece();
             //derece.Tanim = "test1";
@@ -98,7 +100,7 @@ namespace UDPCommunication.UI
 
             //bool d = new DataService().deleteItem(new Guid("1aa58efd-ea6b-4a1d-8340-4a3dd3d970b2"));
 
-            List<Derece> list = new DataService().getByDateRange(DateTime.Now.AddDays(-1), DateTime.Now);
+            //List<Derece> list = new DataService().getByDateRange(DateTime.Now.AddDays(-1), DateTime.Now);
 
             if (string.IsNullOrEmpty(txtMessage.Text.Trim()))
             {

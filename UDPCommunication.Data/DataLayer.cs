@@ -7,13 +7,13 @@ namespace UDPCommunication.Data
 {
     public class DataLayer
     {
-        public List<Derece> getItems()
+        public List<UDPLog> getItems()
         {
             var configuration = new NHibernate.Cfg.Configuration();
             ISessionFactory sessionFactory = new Configuration().Configure("hibernate.cfg.xml").BuildSessionFactory();
             ISession session = sessionFactory.OpenSession();
             ITransaction transaction = session.BeginTransaction();
-            IList<Derece> logList = session.CreateSQLQuery(@"select * from ""SIC"".""Derece""").AddEntity(typeof(Derece)).List<Derece>();
+            IList<UDPLog> logList = session.CreateSQLQuery(@"select * from ""public"".""UDPLog""").AddEntity(typeof(UDPLog)).List<UDPLog>();
             return logList.ToList();
         }
 

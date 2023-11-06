@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <None Remove="Mappings\Derece.hbm.xml" />
+    <None Remove="Mappings\UDPLog.hbm.xml" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Mappings\UDPLog.hbm.xml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Mappings\Derece.hbm.xml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

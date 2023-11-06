@@ -1,20 +1,14 @@
 ﻿using NHibernate;
 using NHibernate.Cfg;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UDPCommunication.Data.Interfaces;
 using UDPCommunication.Models;
 using UDPCommunication.Models.DomainModels;
 
 namespace UDPCommunication.Data.Repository
 {
-    public class UDPRepository : IUDPRepository
+    public class DereceRepository : IDereceRepository
     {
-        public bool DeleteItem(Guid itemId)
+        public OperationResult<bool> DeleteItem(Guid itemId)
         {
             throw new NotImplementedException();
         }
@@ -42,12 +36,12 @@ namespace UDPCommunication.Data.Repository
             return result;
         }
 
-        public List<Derece> GetItemsByDateRange(DateTime startDate, DateTime endDate)
+        public OperationResult<List<Derece>> GetItemsByDateRange(DateTime startDate, DateTime endDate)
         {
             throw new NotImplementedException();
         }
 
-        public bool SaveItem(Derece item)
+        public OperationResult<bool> SaveItem(Derece item)
         {
             throw new NotImplementedException();
         }
