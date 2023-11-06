@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace UDPCommunication.Models.DomainModels
 {
     public class UDPLog
@@ -16,5 +12,19 @@ namespace UDPCommunication.Models.DomainModels
         public virtual string Ip { get; set; }
 
         public virtual string LogDirection { get; set; }
+
+        public UDPLog()
+        {
+
+        }
+
+        public UDPLog(string message, DateTime logDate, string ip, string logDirection)
+        {
+            Id = Guid.NewGuid();
+            Message = message;
+            LogDate = logDate;
+            Ip = ip;
+            LogDirection = logDirection;
+        }
     }
 }

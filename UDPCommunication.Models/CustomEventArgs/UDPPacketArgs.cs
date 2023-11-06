@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
+﻿using UDPCommunication.Models.DomainModels;
 
 namespace UDPCommunication.Models.CustomEventArgs
 {
     public class UDPPacketArgs : EventArgs
     {
-        public UDPPacket Data { get; set; }
+        public UDPLog Data { get; set; }
 
-        public UDPPacketArgs(UDPPacket data)
+        public UDPPacketArgs(UDPLog data)
         {
             Data = data;
         }

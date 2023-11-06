@@ -71,10 +71,10 @@
 
                     <DataGrid Name="gridSource" IsReadOnly="True" SelectionMode="Single" Grid.Row="1" Grid.Column="0" Margin="5">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Tarih" Binding="{Binding DateTime}" Width="0.25*"/>
-                            <DataGridTextColumn Header="IP" Binding="{Binding IP}" Width="0.25*"/>
-                            <DataGridTextColumn Header="Tip" Binding="{Binding UDPOperationType}" Width="0.25*"/>
-                            <DataGridTextColumn Header="Mesaj" Binding="{Binding Message}" Width="0.25*"/>
+                            <DataGridTextColumn Header="Tarih" Binding="{Binding LogDate}" Width="0.25*"/>
+                            <DataGridTextColumn Header="IP" Binding="{Binding Ip}" Width="0.25*"/>
+                            <DataGridTextColumn Header="Mesaj Yönü" Binding="{Binding LogDirection}" Width="0.25*"/>
+                            <DataGridTextColumn Header="Mesaj İçeriği" Binding="{Binding Message}" Width="0.25*"/>
                         </DataGrid.Columns>
 
                     </DataGrid>

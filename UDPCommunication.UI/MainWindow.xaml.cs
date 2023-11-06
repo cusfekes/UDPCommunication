@@ -40,6 +40,17 @@ namespace UDPCommunication.UI
             udpService = new UDPService();
             cryptoService = new CryptoService();
             udpService.udpMessageFired += UdpMessageFired;
+            LoadUDPMessage();
+        }
+
+        private void LoadUDPMessage()
+        {
+            OperationResult<List<UDPLog>> result = udpLogService.GetAllItems();
+            if (result.Success)
+            {
+                List<UDPLog> source = result.Result;
+                gridSource.ItemsSource = source;
+            }
         }
 
         private void btnListen_Click(object sender, RoutedEventArgs e)
@@ -81,27 +92,27 @@ namespace UDPCommunication.UI
             if (result.Success)
             {
                 string decryptedMessage = result.Result;
-                UDPPacket udpPacket = e.Data;
-                udpPacket.Message = decryptedMessage;
-                gridSource.Items.Add(udpPacket);
+                UDPLog udpLog = e.Data;
+                udpLog.Message = decryptedMessage;
+                SaveUDPMessage(udpLog);
+            }
+        }
+
+        private void SaveUDPMessage(UDPLog udpLog)
+        {
+            OperationResult<bool> result = udpLogService.SaveItem(udpLog);
+            if(result.Success)
+            {
+                gridSource.Items.Add(udpLog);
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
             }
         }
 
         private async void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            List<UDPLog> list = udpLogService.GetAllItems().Result;
-
-            //Derece derece = new Derece();
-            //derece.Tanim = "test1";
-            //derece.CreatedBy = Guid.Parse("00000000-0000-0000-0000-000000000000");
-            //derece.CreatedAt = DateTime.Now;
-            //derece.IsActive = true;
-            //new DataService().save(derece);
-
-            //bool d = new DataService().deleteItem(new Guid("1aa58efd-ea6b-4a1d-8340-4a3dd3d970b2"));
-
-            //List<Derece> list = new DataService().getByDateRange(DateTime.Now.AddDays(-1), DateTime.Now);
-
             if (string.IsNullOrEmpty(txtMessage.Text.Trim()))
             {
                 MessageBox.Show("Gönderilecek mesaj bilgisi giriniz");
@@ -123,7 +134,7 @@ namespace UDPCommunication.UI
                 MessageBox.Show("Silmek istediğiniz öğeyi seçiniz");
                 return;
             }
-            UDPPacket udpPacket = (UDPPacket)gridSource.SelectedItem;
+            UDPLog udpLog = (UDPLog)gridSource.SelectedItem;
         }
     }
 }

@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using UDPCommunication.Data.Interfaces;
 using UDPCommunication.Data.Repository;
@@ -31,12 +26,18 @@ namespace UDPCommunication.UI
 
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
+
+            ServiceProvider = serviceCollection.BuildServiceProvider();
+
+            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+            mainWindow.Show();
         }
 
         private static void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUDPLogRepository, UDPLogRepository>();
             services.AddScoped<IUDPLogService, UDPLogService>();
+            services.AddTransient(typeof(MainWindow));
         }
     }
 }
