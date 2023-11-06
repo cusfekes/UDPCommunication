@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UDPCommunication.Models\UDPCommunication.Models.csproj" />
+    <ProjectReference Include="..\UDPCommunication.Data\UDPCommunication.Data.csproj" />
   </ItemGroup>
 
 </Project>

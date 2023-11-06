@@ -1,10 +1,7 @@
-﻿using NHibernate;
-using NHibernate.Cfg;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using UDPCommunication.Models;
 using UDPCommunication.Models.CustomEventArgs;
+using UDPCommunication.Models.DomainModels;
 using UDPCommunication.Models.Enums;
 using UDPCommunication.Service.Services;
 using UDPCommunication.UI.Utils;
@@ -89,15 +87,7 @@ namespace UDPCommunication.UI
 
         private async void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            var configuration = new NHibernate.Cfg.Configuration();
-            //configuration.AddAssembly(typeof(UDPLog).Assembly);
-            ISessionFactory sessionFactory = new Configuration().Configure("hibernate.cfg.xml").BuildSessionFactory();
-            ISession session = sessionFactory.OpenSession();
-            ITransaction transaction = session.BeginTransaction();
-            IList<UDPLogItem> logList = session.CreateSQLQuery(@"SELECT u FROM public.""UDPLog"" as u").AddEntity(typeof(UDPLogItem)).List<UDPLogItem>();
-            
-            //object a = session.Get("UDPLog", "466911F4-55F9-41DB-9F61-111757D345BC");
-            int v = 1;
+            List<Derece> list = new DataService().getItems();
 
             if (string.IsNullOrEmpty(txtMessage.Text.Trim()))
             {

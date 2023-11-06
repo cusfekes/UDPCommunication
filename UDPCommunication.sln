@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UDPCommunication.Models", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UDPCommunication.Service", "UDPCommunication.Service\UDPCommunication.Service.csproj", "{AEB75422-FE8E-4250-91D2-B0F530FB50C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDPCommunication.Test", "UDPCommunication.Test\UDPCommunication.Test.csproj", "{AFD3B064-80FA-4567-85F0-704C3ADC7C6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UDPCommunication.Test", "UDPCommunication.Test\UDPCommunication.Test.csproj", "{AFD3B064-80FA-4567-85F0-704C3ADC7C6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDPCommunication.Data", "UDPCommunication.Data\UDPCommunication.Data.csproj", "{8930BEB1-A090-403E-BEBD-099D118045B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{AFD3B064-80FA-4567-85F0-704C3ADC7C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFD3B064-80FA-4567-85F0-704C3ADC7C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFD3B064-80FA-4567-85F0-704C3ADC7C6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8930BEB1-A090-403E-BEBD-099D118045B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8930BEB1-A090-403E-BEBD-099D118045B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8930BEB1-A090-403E-BEBD-099D118045B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8930BEB1-A090-403E-BEBD-099D118045B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

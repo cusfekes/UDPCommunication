@@ -14,19 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NHibernate" Version="5.4.6" />
-    <PackageReference Include="Npgsql" Version="7.0.6" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\UDPCommunication.Data\UDPCommunication.Data.csproj" />
     <ProjectReference Include="..\UDPCommunication.Models\UDPCommunication.Models.csproj" />
     <ProjectReference Include="..\UDPCommunication.Service\UDPCommunication.Service.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="hibernate.cfg.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
