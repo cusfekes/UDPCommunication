@@ -37,6 +37,7 @@ namespace UDPCommunication.UI
         {
             services.AddScoped<IUDPLogRepository, UDPLogRepository>();
             services.AddScoped<IUDPLogService, UDPLogService>();
+            services.AddScoped<ICryptoService, CryptoService>();
             services.AddTransient(typeof(MainWindow));
         }
     }

@@ -22,11 +22,11 @@ namespace UDPCommunication.UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private CryptoService cryptoService;
+        private ICryptoService cryptoService;
         private UDPService udpService;
         private readonly IUDPLogService udpLogService;
 
-        public MainWindow(IUDPLogService _udpLogService)
+        public MainWindow(IUDPLogService _udpLogService, ICryptoService _cryptoService)
         {
             InitializeComponent();
             txtSourceIP.Text = "127.0.0.1";
@@ -38,18 +38,19 @@ namespace UDPCommunication.UI
 
             udpLogService = _udpLogService;
             udpService = new UDPService();
-            cryptoService = new CryptoService();
+            cryptoService = _cryptoService;
             udpService.udpMessageFired += UdpMessageFired;
-            LoadUDPMessage();
+            LoadUDPMessages();
         }
 
-        private void LoadUDPMessage()
+        private void LoadUDPMessages()
         {
             OperationResult<List<UDPLog>> result = udpLogService.GetAllItems();
             if (result.Success)
             {
                 List<UDPLog> source = result.Result;
-                gridSource.ItemsSource = source;
+                //gridSource.Items.Clear();
+                //gridSource.ItemsSource = source;
             }
         }
 
@@ -103,7 +104,8 @@ namespace UDPCommunication.UI
             OperationResult<bool> result = udpLogService.SaveItem(udpLog);
             if(result.Success)
             {
-                gridSource.Items.Add(udpLog);
+                //gridSource.Items.Add(udpLog);
+                LoadUDPMessages();
             }
             else
             {
