@@ -87,7 +87,18 @@ namespace UDPCommunication.UI
 
         private async void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            List<Derece> list = new DataService().getItems();
+            //List<Derece> list = new DataService().getItems();
+
+            //Derece derece = new Derece();
+            //derece.Tanim = "test1";
+            //derece.CreatedBy = Guid.Parse("00000000-0000-0000-0000-000000000000");
+            //derece.CreatedAt = DateTime.Now;
+            //derece.IsActive = true;
+            //new DataService().save(derece);
+
+            //bool d = new DataService().deleteItem(new Guid("1aa58efd-ea6b-4a1d-8340-4a3dd3d970b2"));
+
+            List<Derece> list = new DataService().getByDateRange(DateTime.Now.AddDays(-1), DateTime.Now);
 
             if (string.IsNullOrEmpty(txtMessage.Text.Trim()))
             {

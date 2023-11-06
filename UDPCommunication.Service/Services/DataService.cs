@@ -14,5 +14,20 @@ namespace UDPCommunication.Service.Services
         {
             return new DataLayer().getItems();
         }
+
+        public bool save(Derece derece)
+        {
+            return new DataLayer().saveItem(derece);
+        }
+
+        public bool deleteItem(Guid dereceId)
+        {
+            return new DataLayer().deleteItem(dereceId);
+        }
+
+        public List<Derece> getByDateRange(DateTime startDate, DateTime finishDate)
+        {
+            return new DataLayer().getByDateRange(startDate, finishDate);
+        }
     }
 }

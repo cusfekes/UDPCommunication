@@ -8,5 +8,7 @@
 		</id>
 		<property name="IsActive" column="IsActive" />
 		<property name="Tanim" column="Tanim" />
+		<property name="CreatedBy" column="CreatedBy" />
+		<property name="CreatedAt" column="CreatedAt" />
 	</class>
 </hibernate-mapping>
