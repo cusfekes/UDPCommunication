@@ -21,11 +21,10 @@ namespace UDPCommunication.Service.Services
         public async Task SendMessageAsync(IPEndPoint endPoint, string message)
         {
             using UdpClient socket = new UdpClient();
-            
             var data = Encoding.UTF8.GetBytes(message);
             socket.Send(data, data.Length, endPoint);
             isMessageSent = true;
-            udpMessageFired?.Invoke(this, new UDPPacketArgs(new UDPLog(message, DateTime.Now, endPoint.Address.ToString(), endPoint.Port, "", 0, UDPOperationTypeEnum.Sent.ToString())));
+            udpMessageFired?.Invoke(this, new UDPPacketArgs(new UDPLog(message, DateTime.Now, endPoint.Address.ToString(), endPoint.Port, UDPOperationTypeEnum.Sent.ToString())));
         }
 
         public async Task StartListening(IPEndPoint endPoint)
@@ -45,8 +44,7 @@ namespace UDPCommunication.Service.Services
                     UdpReceiveResult datagram = await udpClient.ReceiveAsync();
                     string message = Encoding.UTF8.GetString(datagram.Buffer);
                     IPEndPoint from = datagram.RemoteEndPoint;
-                    udpMessageFired?.Invoke(this, new UDPPacketArgs(new UDPLog(message, DateTime.Now, endPoint.Address.ToString(), endPoint.Port, "", 0, UDPOperationTypeEnum.Receive.ToString())));
-
+                    udpMessageFired?.Invoke(this, new UDPPacketArgs(new UDPLog(message, DateTime.Now, endPoint.Address.ToString(), endPoint.Port, UDPOperationTypeEnum.Receive.ToString())));
                 }
             }
             catch

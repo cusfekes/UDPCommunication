@@ -20,11 +20,6 @@
             Result = result;
         }
 
-        public void SetFailureMode(Exception ex)
-        {
-            SetFailureMode(ex.Message);
-        }
-
         public void SetFailureMode(string message)
         {
             Success = false;

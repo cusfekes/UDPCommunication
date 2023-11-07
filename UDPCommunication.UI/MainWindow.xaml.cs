@@ -48,6 +48,8 @@ namespace UDPCommunication.UI
                 foreach (UDPLog log in source)
                     gridSource.Items.Add(log);
             }
+            else
+                MessageBox.Show(result.Message);
         }
 
         private void btnListen_Click(object sender, RoutedEventArgs e)

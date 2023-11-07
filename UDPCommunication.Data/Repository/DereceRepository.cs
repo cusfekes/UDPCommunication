@@ -31,7 +31,7 @@ namespace UDPCommunication.Data.Repository
             }
             catch (Exception ex)
             {
-                result.SetFailureMode(ex);
+                result.SetFailureMode(Constants.DB_ERROR + ex.Message);
             }
             return result;
         }

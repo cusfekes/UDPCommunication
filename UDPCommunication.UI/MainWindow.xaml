@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UDPCommunication.UI"
         mc:Ignorable="d"
+        Icon="Icon.ico"
         Title="UDP Sender / Receiver" Height="550" Width="950">
     <Grid>
         <DockPanel LastChildFill="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -73,12 +74,10 @@
 
                     <DataGrid Name="gridSource" IsReadOnly="True" SelectionMode="Single" Grid.Row="1" Grid.Column="0" Margin="5">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Tarih" Binding="{Binding LogDate}" Width="0.15*"/>
-                            <DataGridTextColumn Header="Kaynak Ip" Binding="{Binding SourceIp}" Width="0.15*"/>
-                            <DataGridTextColumn Header="Kaynak Port" Binding="{Binding SourcePort}" Width="0.10*"/>
-                            <DataGridTextColumn Header="Hedef Ip" Binding="{Binding DestIp}" Width="0.15*"/>
-                            <DataGridTextColumn Header="Hedef Port" Binding="{Binding DestPort}" Width="0.10*"/>
-                            <DataGridTextColumn Header="Mesaj Yönü" Binding="{Binding LogDirection}" Width="0.15*"/>
+                            <DataGridTextColumn Header="Tarih" Binding="{Binding LogDate}" Width="0.20*"/>
+                            <DataGridTextColumn Header="Ip Adresi" Binding="{Binding IpAddress}" Width="0.20*"/>
+                            <DataGridTextColumn Header="Port No" Binding="{Binding PortNumber}" Width="0.20*"/>
+                            <DataGridTextColumn Header="Mesaj Yönü" Binding="{Binding LogDirection}" Width="0.20*"/>
                             <DataGridTextColumn Header="Mesaj İçeriği" Binding="{Binding Message}" Width="0.20*"/>
                         </DataGrid.Columns>
                     </DataGrid>

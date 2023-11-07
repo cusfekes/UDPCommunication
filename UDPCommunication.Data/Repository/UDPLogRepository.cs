@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using NHibernate.Cfg;
+using System.Text;
 using UDPCommunication.Data.Interfaces;
 using UDPCommunication.Models;
 using UDPCommunication.Models.DomainModels;
@@ -18,7 +19,7 @@ namespace UDPCommunication.Data.Repository
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
-                        ISQLQuery query = session.CreateSQLQuery(QueryConstants.DELETE_STATEMENT).AddEntity(typeof(UDPLog));
+                        ISQLQuery query = session.CreateSQLQuery(Constants.DELETE_STATEMENT_QUERY).AddEntity(typeof(UDPLog));
                         query.SetParameter("Id", itemId);
                         int exec = query.ExecuteUpdate();
                         transaction.Commit();
@@ -29,7 +30,8 @@ namespace UDPCommunication.Data.Repository
             }
             catch (Exception ex)
             {
-                result.SetFailureMode(ex);
+                string message = CreateExceptionString(Constants.DB_ERROR, Constants.DB_DELETE_ERROR, ex.Message);
+                result.SetFailureMode(message);
             }
             return result;
         }
@@ -44,7 +46,7 @@ namespace UDPCommunication.Data.Repository
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
-                        List<UDPLog> source = session.CreateSQLQuery(QueryConstants.GET_ALL_STATEMENT).AddEntity(typeof(UDPLog)).List<UDPLog>().ToList();
+                        List<UDPLog> source = session.CreateSQLQuery(Constants.GET_ALL_STATEMENT_QUERY).AddEntity(typeof(UDPLog)).List<UDPLog>().ToList();
                         result.SetSuccessMode(source);
                     }
                 }
@@ -52,7 +54,8 @@ namespace UDPCommunication.Data.Repository
             }
             catch (Exception ex)
             {
-                result.SetFailureMode(ex);
+                string message = CreateExceptionString(Constants.DB_ERROR, Constants.DB_GET_ALL_ERROR, ex.Message);
+                result.SetFailureMode(message);
             }
             return result;
         }
@@ -67,7 +70,7 @@ namespace UDPCommunication.Data.Repository
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
-                        ISQLQuery query = session.CreateSQLQuery(QueryConstants.GET_BY_DATE_STATEMENT).AddEntity(typeof(UDPLog));
+                        ISQLQuery query = session.CreateSQLQuery(Constants.GET_BY_DATE_STATEMENT_QUERY).AddEntity(typeof(UDPLog));
                         query.SetParameter("StartDate", startDate);
                         query.SetParameter("EndDate", endDate);
                         List<UDPLog> source = query.List<UDPLog>().ToList();
@@ -78,7 +81,8 @@ namespace UDPCommunication.Data.Repository
             }
             catch (Exception ex)
             {
-                result.SetFailureMode(ex);
+                string message = CreateExceptionString(Constants.DB_ERROR, Constants.DB_GET_BY_DATE_RANGE_ERROR, ex.Message);
+                result.SetFailureMode(message);
             }
             return result;
         }
@@ -93,14 +97,12 @@ namespace UDPCommunication.Data.Repository
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
-                        ISQLQuery query = session.CreateSQLQuery(QueryConstants.INSERT_STATEMENT).AddEntity(typeof(UDPLog));
+                        ISQLQuery query = session.CreateSQLQuery(Constants.INSERT_STATEMENT_QUERY).AddEntity(typeof(UDPLog));
                         query.SetParameter("Id", item.Id);
                         query.SetParameter("Message", item.Message);
                         query.SetParameter("LogDate", item.LogDate);
-                        query.SetParameter("SourceIp", item.SourceIp);
-                        query.SetParameter("SourcePort", item.SourcePort);
-                        query.SetParameter("DestIp", item.DestIp);
-                        query.SetParameter("DestPort", item.DestPort);
+                        query.SetParameter("IpAddress", item.IpAddress);
+                        query.SetParameter("PortNumber", item.PortNumber);
                         query.SetParameter("LogDirection", item.LogDirection);
                         int exec = query.ExecuteUpdate();
                         transaction.Commit();
@@ -111,9 +113,17 @@ namespace UDPCommunication.Data.Repository
             }
             catch (Exception ex)
             {
-                result.SetFailureMode(ex);
+                string message = CreateExceptionString(Constants.DB_ERROR, Constants.DB_SAVE_ERROR, ex.Message);
+                result.SetFailureMode(message);
             }
             return result;
+        }
+
+        private string CreateExceptionString(string header, string title, string body)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append(header).Append(title).Append(body);
+            return stringBuilder.ToString();
         }
     }
 }

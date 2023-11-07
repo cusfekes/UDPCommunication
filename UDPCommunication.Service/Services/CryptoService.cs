@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using UDPCommunication.Data;
 using UDPCommunication.Models;
 using UDPCommunication.Service.Interfaces;
 
@@ -19,10 +20,10 @@ namespace UDPCommunication.Service.Services
                 result.SetSuccessMode(encData);
             }
             catch (CryptographicException ex) {
-                result.SetFailureMode(ex);
+                result.SetFailureMode(Constants.CRYPTO_ERROR + ex.Message);
             }
             catch (ArgumentNullException ex) {
-                result.SetFailureMode(ex);
+                result.SetFailureMode(Constants.CRYPTO_ERROR + ex.Message);
             }
             return result;
         }
@@ -37,10 +38,10 @@ namespace UDPCommunication.Service.Services
                 result.SetSuccessMode(decData);
             }
             catch (CryptographicException ex) {
-                result.SetFailureMode(ex);
+                result.SetFailureMode(Constants.CRYPTO_ERROR + ex.Message);
             }
             catch (ArgumentNullException ex) {
-                result.SetFailureMode(ex);
+                result.SetFailureMode(Constants.CRYPTO_ERROR + ex.Message);
             }
             return result;
         }
