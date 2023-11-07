@@ -1,5 +1,4 @@
-﻿
-namespace UDPCommunication.Models.DomainModels
+﻿namespace UDPCommunication.Models.DomainModels
 {
     public class UDPLog
     {
@@ -15,7 +14,6 @@ namespace UDPCommunication.Models.DomainModels
 
         public UDPLog()
         {
-
         }
 
         public UDPLog(string message, DateTime logDate, string ip, string logDirection)

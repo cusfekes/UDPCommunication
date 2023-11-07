@@ -76,7 +76,6 @@
                             <DataGridTextColumn Header="Mesaj Yönü" Binding="{Binding LogDirection}" Width="0.25*"/>
                             <DataGridTextColumn Header="Mesaj İçeriği" Binding="{Binding Message}" Width="0.25*"/>
                         </DataGrid.Columns>
-
                     </DataGrid>
                 </Grid>
             </Grid>

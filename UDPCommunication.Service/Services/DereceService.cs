@@ -1,33 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UDPCommunication.Models.DomainModels;
+﻿using UDPCommunication.Models.DomainModels;
 using UDPCommunication.Service.Interfaces;
 
 namespace UDPCommunication.Service.Services
 {
     public class DereceService : IDereceService
     {
+        private readonly IDereceService _dereceService;
+
+        public DereceService(IDereceService dereceService)
+        {
+            _dereceService = dereceService;
+        }
+
         public bool DeleteItem(Guid dereceId)
         {
-            throw new NotImplementedException();
+            return _dereceService.DeleteItem(dereceId);
         }
 
         public List<Derece> GetAllItems()
         {
-            throw new NotImplementedException();
+            return _dereceService.GetAllItems();
         }
 
-        public List<Derece> GetItemsByDateRange(DateTime startDate, DateTime finishDate)
+        public List<Derece> GetItemsByDateRange(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            return _dereceService.GetItemsByDateRange(startDate, endDate);
         }
 
         public bool SaveItem(Derece derece)
         {
-            throw new NotImplementedException();
+            return _dereceService.SaveItem(derece);
         }
     }
 }

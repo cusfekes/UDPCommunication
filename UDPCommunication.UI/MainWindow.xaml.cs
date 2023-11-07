@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using UDPCommunication.Models;
 using UDPCommunication.Models.CustomEventArgs;
 using UDPCommunication.Models.DomainModels;
@@ -22,9 +18,9 @@ namespace UDPCommunication.UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ICryptoService cryptoService;
-        private UDPService udpService;
+        private readonly ICryptoService cryptoService;
         private readonly IUDPLogService udpLogService;
+        private UDPService udpService;
 
         public MainWindow(IUDPLogService _udpLogService, ICryptoService _cryptoService)
         {

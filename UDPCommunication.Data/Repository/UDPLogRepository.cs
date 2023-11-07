@@ -18,13 +18,14 @@ namespace UDPCommunication.Data.Repository
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
-                        ISQLQuery query = session.CreateSQLQuery(@"delete from ""public"".""UDPLog"" where ""Id""=:Id").AddEntity(typeof(UDPLog));
+                        ISQLQuery query = session.CreateSQLQuery(QueryConstants.DELETE_STATEMENT).AddEntity(typeof(UDPLog));
                         query.SetParameter("Id", itemId);
                         int exec = query.ExecuteUpdate();
                         transaction.Commit();
                         result.SetSuccessMode(exec == 1);
                     }
                 }
+                sessionFactory.Close();
             }
             catch (Exception ex)
             {
@@ -43,10 +44,11 @@ namespace UDPCommunication.Data.Repository
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
-                        List<UDPLog> source = session.CreateSQLQuery(@"select * from ""public"".""UDPLog""").AddEntity(typeof(UDPLog)).List<UDPLog>().ToList();
+                        List<UDPLog> source = session.CreateSQLQuery(QueryConstants.GET_ALL_STATEMENT).AddEntity(typeof(UDPLog)).List<UDPLog>().ToList();
                         result.SetSuccessMode(source);
                     }
                 }
+                sessionFactory.Close();
             }
             catch (Exception ex)
             {
@@ -65,13 +67,14 @@ namespace UDPCommunication.Data.Repository
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
-                        ISQLQuery query = session.CreateSQLQuery(@"select * from ""public"".""UDPLog"" where ""LogDate"">=:StartDate and ""LogDate""<=:EndDate").AddEntity(typeof(UDPLog));
+                        ISQLQuery query = session.CreateSQLQuery(QueryConstants.GET_BY_DATE_STATEMENT).AddEntity(typeof(UDPLog));
                         query.SetParameter("StartDate", startDate);
                         query.SetParameter("EndDate", endDate);
                         List<UDPLog> source = query.List<UDPLog>().ToList();
                         result.SetSuccessMode(source);
                     }
                 }
+                sessionFactory.Close();
             }
             catch (Exception ex)
             {
@@ -90,7 +93,7 @@ namespace UDPCommunication.Data.Repository
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
-                        ISQLQuery query = session.CreateSQLQuery(@"insert into ""public"".""UDPLog""(""Id"", ""Message"", ""LogDate"", ""Ip"", ""LogDirection"")VALUES(:Id, :Message, :LogDate, :Ip, :LogDirection);").AddEntity(typeof(UDPLog));
+                        ISQLQuery query = session.CreateSQLQuery(QueryConstants.INSERT_STATEMENT).AddEntity(typeof(UDPLog));
                         query.SetParameter("Id", item.Id);
                         query.SetParameter("Message", item.Message);
                         query.SetParameter("LogDate", item.LogDate);
@@ -101,6 +104,7 @@ namespace UDPCommunication.Data.Repository
                         result.SetSuccessMode(exec == 1);
                     }
                 }
+                sessionFactory.Close();
             }
             catch (Exception ex)
             {
