@@ -2,7 +2,7 @@
 {
     public class QueryConstants
     {
-        public static string INSERT_STATEMENT = @"insert into ""public"".""UDPLog""(""Id"", ""Message"", ""LogDate"", ""Ip"", ""LogDirection"")VALUES(:Id, :Message, :LogDate, :Ip, :LogDirection);";
+        public static string INSERT_STATEMENT = @"insert into ""public"".""UDPLog""(""Id"", ""Message"", ""LogDate"", ""SourceIp"", ""SourcePort"", ""DestIp"", ""DestPort"", ""LogDirection"")VALUES(:Id, :Message, :LogDate, :SourceIp, :SourcePort, :DestIp, :DestPort, :LogDirection);";
 
         public static string DELETE_STATEMENT = @"delete from ""public"".""UDPLog"" where ""Id""=:Id";
 

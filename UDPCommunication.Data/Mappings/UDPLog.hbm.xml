@@ -8,7 +8,10 @@
 		</id>
 		<property name="Message" column="Message" />
 		<property name="LogDate" column="LogDate" />
-		<property name="Ip" column="Ip" />
+		<property name="SourceIp" column="SourceIp" />
+		<property name="SourcePort" column="SourcePort" />
+		<property name="DestIp" column="DestIp" />
+		<property name="DestPort" column="DestPort" />
 		<property name="LogDirection" column="LogDirection" />
 	</class>
 </hibernate-mapping>

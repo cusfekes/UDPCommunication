@@ -8,7 +8,13 @@
 
         public virtual DateTime LogDate { get; set; }
 
-        public virtual string Ip { get; set; }
+        public virtual string SourceIp { get; set; }
+
+        public virtual int SourcePort { get; set; }
+
+        public virtual string DestIp { get;set; }
+
+        public virtual int DestPort { get; set; }
 
         public virtual string LogDirection { get; set; }
 
@@ -16,12 +22,15 @@
         {
         }
 
-        public UDPLog(string message, DateTime logDate, string ip, string logDirection)
+        public UDPLog(string message, DateTime logDate, string sourceIp, int sourcePort, string destIp, int destPort, string logDirection)
         {
             Id = Guid.NewGuid();
             Message = message;
             LogDate = logDate;
-            Ip = ip;
+            SourceIp = sourceIp;
+            SourcePort = sourcePort;
+            DestIp = destIp;
+            DestPort = destPort;
             LogDirection = logDirection;
         }
     }

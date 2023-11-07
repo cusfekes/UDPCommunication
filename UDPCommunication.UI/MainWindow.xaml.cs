@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Windows;
 using UDPCommunication.Models;
 using UDPCommunication.Models.CustomEventArgs;
@@ -45,8 +44,9 @@ namespace UDPCommunication.UI
             if (result.Success)
             {
                 List<UDPLog> source = result.Result;
-                //gridSource.Items.Clear();
-                //gridSource.ItemsSource = source;
+                gridSource.Items.Clear();
+                foreach (UDPLog log in source)
+                    gridSource.Items.Add(log);
             }
         }
 
@@ -97,16 +97,11 @@ namespace UDPCommunication.UI
 
         private void SaveUDPMessage(UDPLog udpLog)
         {
+            gridSource.Items.Add(udpLog);
+            txtMessage.Clear();
             OperationResult<bool> result = udpLogService.SaveItem(udpLog);
-            if(result.Success)
-            {
-                //gridSource.Items.Add(udpLog);
-                LoadUDPMessages();
-            }
-            else
-            {
+            if (!result.Success)
                 MessageBox.Show(result.Message);
-            }
         }
 
         private async void btnSend_Click(object sender, RoutedEventArgs e)
@@ -133,6 +128,43 @@ namespace UDPCommunication.UI
                 return;
             }
             UDPLog udpLog = (UDPLog)gridSource.SelectedItem;
+            OperationResult<bool> result = udpLogService.DeleteItem(udpLog.Id);
+            if (result.Success)
+                LoadUDPMessages();
+            else
+                MessageBox.Show(result.Message);
+        }
+
+        private void btnFilter_Click(object sender, RoutedEventArgs e)
+        {
+            if (dtStartDate.SelectedDate == null || dtEndDate.SelectedDate == null)
+            {
+                MessageBox.Show("Başlangıç ve bitiş tarihi seçiniz");
+                return;
+            }
+            if (DateTime.Compare(dtStartDate.SelectedDate.Value, dtEndDate.SelectedDate.Value) == 1)
+            {
+                MessageBox.Show("Başlangıç tarihi bitiş tarihinden sonra olamaz");
+                return;
+            }
+            OperationResult<List<UDPLog>> result = udpLogService.GetItemsByDateRange(dtStartDate.SelectedDate.Value, dtEndDate.SelectedDate.Value);
+            if (result.Success)
+            {
+                List<UDPLog> filterList = result.Result;
+                gridSource.Items.Clear();
+                foreach (UDPLog log in filterList)
+                    gridSource.Items.Add(log);
+
+            }
+            else
+                MessageBox.Show(result.Message);
+        }
+
+        private void btnClearFilter_Click(object sender, RoutedEventArgs e)
+        {
+            dtStartDate.SelectedDate = null;
+            dtEndDate.SelectedDate = null;
+            LoadUDPMessages();
         }
     }
 }

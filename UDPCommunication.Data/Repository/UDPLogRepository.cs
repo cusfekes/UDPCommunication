@@ -97,7 +97,10 @@ namespace UDPCommunication.Data.Repository
                         query.SetParameter("Id", item.Id);
                         query.SetParameter("Message", item.Message);
                         query.SetParameter("LogDate", item.LogDate);
-                        query.SetParameter("Ip", item.Ip);
+                        query.SetParameter("SourceIp", item.SourceIp);
+                        query.SetParameter("SourcePort", item.SourcePort);
+                        query.SetParameter("DestIp", item.DestIp);
+                        query.SetParameter("DestPort", item.DestPort);
                         query.SetParameter("LogDirection", item.LogDirection);
                         int exec = query.ExecuteUpdate();
                         transaction.Commit();

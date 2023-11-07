@@ -8,6 +8,7 @@ namespace UDPCommunication.Service.Services
     public class CryptoService : ICryptoService
     {
         private readonly string SHA256_KEY = "aselsan";
+
         public OperationResult<string> Encrypt(string data)
         {
             OperationResult<string> result = new OperationResult<string>();

@@ -1,15 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UDPCommunication.Models;
-using UDPCommunication.Service.Services;
+using UDPCommunication.Service.Interfaces;
 
-namespace UDPCommunication.Test
+namespace UDPCommunication.Test.UnitTests
 {
     [TestClass]
-    public class CryptoUnitTest
+    public class CryptoServiceUnitTest : BaseUnitTest
     {
         private const string MESSAGE = "This is a unit test message";
         private const string ENCRYPTED_MESSAGE = "tIALhJ43t3U//XkVdD8d1Op+gK5tb2NAUneV3Lvuu+0=";
@@ -17,8 +14,7 @@ namespace UDPCommunication.Test
         [TestMethod]
         public void EncyrptTest()
         {
-            CryptoService cryptoService = new CryptoService();
-
+            ICryptoService cryptoService = serviceProvider.GetRequiredService<ICryptoService>();
             OperationResult<string> result = cryptoService.Encrypt(MESSAGE);
             if (result.Success)
             {
@@ -34,9 +30,7 @@ namespace UDPCommunication.Test
         [TestMethod]
         public void DecryptTest()
         {
-            
-            CryptoService cryptoService = new CryptoService();
-
+            ICryptoService cryptoService = serviceProvider.GetRequiredService<ICryptoService>();
             OperationResult<string> result = cryptoService.Decrypt(ENCRYPTED_MESSAGE);
             if (result.Success)
             {

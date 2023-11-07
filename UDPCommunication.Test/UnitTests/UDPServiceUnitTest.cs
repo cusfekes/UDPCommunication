@@ -1,12 +1,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Net;
 using UDPCommunication.Service.Services;
 
-namespace UDPCommunication.Test
+namespace UDPCommunication.Test.UnitTests
 {
     [TestClass]
-    public class UDPUnitTest
+    public class UDPServiceUnitTest
     {
         private const string MESSAGE = "This is a unit test message";
 
