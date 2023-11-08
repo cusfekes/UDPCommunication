@@ -93,11 +93,11 @@ namespace UDPCommunication.UI
         private void UdpMessageFired(object sender, UDPPacketArgs e)
         {
             // Event fired while sending or listening any messages. Decrypt the message then save to database
-            OperationResult<string> result = cryptoService.Decrypt(e.Data.Message);
+            OperationResult<string> result = cryptoService.Decrypt(e.GetData().Message);
             if (result.Success)
             {
                 string decryptedMessage = result.Result;
-                UDPLog udpLog = e.Data;
+                UDPLog udpLog = e.GetData();
                 udpLog.Message = decryptedMessage;
                 SaveUDPMessage(udpLog);
             }

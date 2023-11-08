@@ -3,7 +3,7 @@
     /// <summary>
     /// Enumeration that holds the UDP message direction
     /// </summary>
-    public enum UDPOperationTypeEnum
+    public enum UDPLogDirectionEnum
     {
         Sent = 0,
         Receive = 1,

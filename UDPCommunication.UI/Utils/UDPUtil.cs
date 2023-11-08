@@ -24,7 +24,7 @@ namespace UDPCommunication.UI.Utils
                 result.SetFailureMode("Port numarası geçerli değil");
 
             bool isPortInRange = true;
-            if (portNumber < 0 || portNumber > 65535)
+            if (portNumber < IPEndPoint.MinPort || portNumber > IPEndPoint.MaxPort)
             {
                 result.SetFailureMode("Port numarası 0 ile 65535 arasında olmalıdır");
                 isPortInRange = false;

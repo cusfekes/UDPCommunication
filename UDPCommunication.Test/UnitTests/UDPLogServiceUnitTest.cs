@@ -54,7 +54,7 @@ namespace UDPCommunication.Test.UnitTests
             item.LogDate = DateTime.Now;
             item.IpAddress = "127.0.0.1";
             item.PortNumber = 9090;
-            item.LogDirection = UDPOperationTypeEnum.Sent.ToString();
+            item.LogDirection = UDPLogDirectionEnum.Sent.ToString();
             OperationResult<bool> result = udpLogService.SaveItem(item);
             if (result.Success)
             {

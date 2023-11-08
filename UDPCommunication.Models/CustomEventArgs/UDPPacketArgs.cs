@@ -7,11 +7,16 @@ namespace UDPCommunication.Models.CustomEventArgs
     /// </summary>
     public class UDPPacketArgs : EventArgs
     {
-        public UDPLog Data { get; set; }
+        private UDPLog Data { get; set; }
 
         public UDPPacketArgs(UDPLog data)
         {
             Data = data;
+        }
+
+        public UDPLog GetData()
+        {
+            return Data;
         }
     }
 }
