@@ -4,6 +4,9 @@ using UDPCommunication.Service.Services;
 
 namespace UDPCommunication.Test.UnitTests
 {
+    /// <summary>
+    /// Defines unit test methods for UDP listening and sending messages
+    /// </summary>
     [TestClass]
     public class UDPServiceUnitTest
     {

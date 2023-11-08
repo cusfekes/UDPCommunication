@@ -7,6 +7,9 @@ using UDPCommunication.Models.DomainModels;
 
 namespace UDPCommunication.Data.Repository
 {
+    /// <summary>
+    /// Database operations using hibernate framework
+    /// </summary>
     public class UDPLogRepository : IUDPLogRepository
     {
         public OperationResult<bool> DeleteItem(Guid itemId)
@@ -30,6 +33,7 @@ namespace UDPCommunication.Data.Repository
             }
             catch (Exception ex)
             {
+                // Create user friendly exception message with technical information
                 string message = CreateExceptionString(Constants.DB_ERROR, Constants.DB_DELETE_ERROR, ex.Message);
                 result.SetFailureMode(message);
             }
@@ -54,6 +58,7 @@ namespace UDPCommunication.Data.Repository
             }
             catch (Exception ex)
             {
+                // Create user friendly exception message with technical information
                 string message = CreateExceptionString(Constants.DB_ERROR, Constants.DB_GET_ALL_ERROR, ex.Message);
                 result.SetFailureMode(message);
             }
@@ -81,6 +86,7 @@ namespace UDPCommunication.Data.Repository
             }
             catch (Exception ex)
             {
+                // Create user friendly exception message with technical information
                 string message = CreateExceptionString(Constants.DB_ERROR, Constants.DB_GET_BY_DATE_RANGE_ERROR, ex.Message);
                 result.SetFailureMode(message);
             }
@@ -113,6 +119,7 @@ namespace UDPCommunication.Data.Repository
             }
             catch (Exception ex)
             {
+                // Create user friendly exception message with technical information
                 string message = CreateExceptionString(Constants.DB_ERROR, Constants.DB_SAVE_ERROR, ex.Message);
                 result.SetFailureMode(message);
             }

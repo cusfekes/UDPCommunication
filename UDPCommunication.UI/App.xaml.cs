@@ -21,10 +21,9 @@ namespace UDPCommunication.UI
         protected override void OnStartup(StartupEventArgs e)
         {
             var builder = new ConfigurationBuilder();
-
             Configuration = builder.Build();
 
-            var serviceCollection = new ServiceCollection();
+            ServiceCollection serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
@@ -35,6 +34,7 @@ namespace UDPCommunication.UI
 
         private static void ConfigureServices(IServiceCollection services)
         {
+            // Inject services to application by using dependency injection
             services.AddScoped<IUDPLogRepository, UDPLogRepository>();
             services.AddScoped<IUDPLogService, UDPLogService>();
             services.AddScoped<ICryptoService, CryptoService>();

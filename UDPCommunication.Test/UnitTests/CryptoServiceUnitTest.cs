@@ -5,6 +5,9 @@ using UDPCommunication.Service.Interfaces;
 
 namespace UDPCommunication.Test.UnitTests
 {
+    /// <summary>
+    /// Defines unit test methods for crypto service
+    /// </summary>
     [TestClass]
     public class CryptoServiceUnitTest : BaseUnitTest
     {

@@ -24,6 +24,7 @@ namespace UDPCommunication.UI
         public MainWindow(IUDPLogService _udpLogService, ICryptoService _cryptoService)
         {
             InitializeComponent();
+            // Define example ip and port values
             txtSourceIP.Text = "127.0.0.1";
             txtSourcePort.Text = "9090";
 
@@ -40,6 +41,7 @@ namespace UDPCommunication.UI
 
         private void LoadUDPMessages()
         {
+            // Load the messages from database
             OperationResult<List<UDPLog>> result = udpLogService.GetAllItems();
             if (result.Success)
             {
@@ -54,6 +56,7 @@ namespace UDPCommunication.UI
 
         private void btnListen_Click(object sender, RoutedEventArgs e)
         {
+            // This is working as toggle button. Starts or stops listening the given ip address and port number
             UDPListenStatusEnum status = (UDPListenStatusEnum)Enum.Parse(typeof(UDPListenStatusEnum), btnListen.Tag.ToString());
             if (status == UDPListenStatusEnum.NotListening)
                 StartListen();
@@ -63,6 +66,7 @@ namespace UDPCommunication.UI
 
         private async void StartListen()
         {
+            // Starts to listening
             OperationResult<IPEndPoint> result = UDPUtil.CreateIPEndPoint(txtSourceIP.Text.Trim(), txtSourcePort.Text.Trim());
             if (result.Success)
             {
@@ -80,6 +84,7 @@ namespace UDPCommunication.UI
 
         private async void StopListen()
         {
+            //Stops to listening
             await udpService.StopListening();
             btnListen.Content = "Bağlan";
             btnListen.Tag = UDPListenStatusEnum.NotListening;
@@ -87,6 +92,7 @@ namespace UDPCommunication.UI
 
         private void UdpMessageFired(object sender, UDPPacketArgs e)
         {
+            // Event fired while sending or listening any messages. Decrypt the message then save to database
             OperationResult<string> result = cryptoService.Decrypt(e.Data.Message);
             if (result.Success)
             {
@@ -99,6 +105,7 @@ namespace UDPCommunication.UI
 
         private void SaveUDPMessage(UDPLog udpLog)
         {
+            // Save the message to database
             gridSource.Items.Add(udpLog);
             txtMessage.Clear();
             OperationResult<bool> result = udpLogService.SaveItem(udpLog);
@@ -108,6 +115,7 @@ namespace UDPCommunication.UI
 
         private async void btnSend_Click(object sender, RoutedEventArgs e)
         {
+            // Send a message to given ip address and port number
             if (string.IsNullOrEmpty(txtMessage.Text.Trim()))
             {
                 MessageBox.Show("Gönderilecek mesaj bilgisi giriniz");
@@ -117,6 +125,7 @@ namespace UDPCommunication.UI
             OperationResult<IPEndPoint> result = UDPUtil.CreateIPEndPoint(txtDestIP.Text.Trim(), txtDestPort.Text.Trim());
             if (result.Success)
             {
+                // Encrypt the message then save to given ip address and port number
                 string encryptedMessage = cryptoService.Encrypt(txtMessage.Text.Trim()).Result;
                 await udpService.SendMessageAsync(result.Result, encryptedMessage);
             }
@@ -124,6 +133,7 @@ namespace UDPCommunication.UI
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            // Delete the selected message from database
             if (gridSource.SelectedItem == null)
             {
                 MessageBox.Show("Silmek istediğiniz öğeyi seçiniz");
@@ -139,6 +149,7 @@ namespace UDPCommunication.UI
 
         private void btnFilter_Click(object sender, RoutedEventArgs e)
         {
+            // Search messages by filtering sending or listening date
             if (dtStartDate.SelectedDate == null || dtEndDate.SelectedDate == null)
             {
                 MessageBox.Show("Başlangıç ve bitiş tarihi seçiniz");
@@ -164,6 +175,7 @@ namespace UDPCommunication.UI
 
         private void btnClearFilter_Click(object sender, RoutedEventArgs e)
         {
+            // Clear date selections in UI
             dtStartDate.SelectedDate = null;
             dtEndDate.SelectedDate = null;
             LoadUDPMessages();

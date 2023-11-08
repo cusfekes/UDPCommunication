@@ -6,17 +6,24 @@ using UDPCommunication.Service.Interfaces;
 
 namespace UDPCommunication.Service.Services
 {
+    /// <summary>
+    /// Defines crypto operations for UDP messages
+    /// </summary>
     public class CryptoService : ICryptoService
     {
+        // Key is required to encrypt and decrypt messages
         private readonly string SHA256_KEY = "aselsan";
 
         public OperationResult<string> Encrypt(string data)
         {
             OperationResult<string> result = new OperationResult<string>();
-            byte[][] keys = GetHashKeys(SHA256_KEY);
+            
+            // Generate hash values from key value
+            byte[][] keys = GetHashKeys();
             try
             {
-                string encData = EncryptStringToBytes_Aes(data, keys[0], keys[1]);
+                // Encrypt the message with the given key
+                string encData = EncryptStringToBytes(data, keys[0], keys[1]);
                 result.SetSuccessMode(encData);
             }
             catch (CryptographicException ex) {
@@ -31,10 +38,13 @@ namespace UDPCommunication.Service.Services
         public OperationResult<string> Decrypt(string data)
         {
             OperationResult<string> result = new OperationResult<string>();
-            byte[][] keys = GetHashKeys(SHA256_KEY);
+
+            // Generate hash values from key value
+            byte[][] keys = GetHashKeys();
             try
             {
-                string decData = DecryptStringFromBytes_Aes(data, keys[0], keys[1]);
+                // Decrypt the message with the given key
+                string decData = DecryptStringFromBytes(data, keys[0], keys[1]);
                 result.SetSuccessMode(decData);
             }
             catch (CryptographicException ex) {
@@ -46,15 +56,16 @@ namespace UDPCommunication.Service.Services
             return result;
         }
 
-        private byte[][] GetHashKeys(string key)
+        private byte[][] GetHashKeys()
         {
+            // Generate hash value from given key
             byte[][] result = new byte[2][];
             Encoding enc = Encoding.UTF8;
 
             SHA256 sha2 = new SHA256CryptoServiceProvider();
 
-            byte[] rawKey = enc.GetBytes(key);
-            byte[] rawIV = enc.GetBytes(key);
+            byte[] rawKey = enc.GetBytes(SHA256_KEY);
+            byte[] rawIV = enc.GetBytes(SHA256_KEY);
 
             byte[] hashKey = sha2.ComputeHash(rawKey);
             byte[] hashIV = sha2.ComputeHash(rawIV);
@@ -66,7 +77,7 @@ namespace UDPCommunication.Service.Services
             return result;
         }
 
-        private static string EncryptStringToBytes_Aes(string plainText, byte[] Key, byte[] IV)
+        private static string EncryptStringToBytes(string plainText, byte[] Key, byte[] IV)
         {
             if (plainText == null || plainText.Length <= 0)
                 throw new ArgumentNullException("plainText");
@@ -97,7 +108,7 @@ namespace UDPCommunication.Service.Services
             return Convert.ToBase64String(encrypted);
         }
 
-        private static string DecryptStringFromBytes_Aes(string cipherTextString, byte[] Key, byte[] IV)
+        private static string DecryptStringFromBytes(string cipherTextString, byte[] Key, byte[] IV)
         {
             byte[] cipherText = Convert.FromBase64String(cipherTextString);
 

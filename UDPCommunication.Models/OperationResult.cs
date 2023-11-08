@@ -1,5 +1,9 @@
 ﻿namespace UDPCommunication.Models
 {
+    /// <summary>
+    /// Describes any operation result in all application. Generic type T defines the return type
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class OperationResult<T>
     {
         public bool Success { get; set; }

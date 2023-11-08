@@ -6,6 +6,9 @@ using UDPCommunication.Service.Services;
 
 namespace UDPCommunication.Test.UnitTests
 {
+    /// <summary>
+    /// Base class for unit test operations. Services are injected with dependency injection
+    /// </summary>
     public class BaseUnitTest
     {
         public ServiceProvider serviceProvider;

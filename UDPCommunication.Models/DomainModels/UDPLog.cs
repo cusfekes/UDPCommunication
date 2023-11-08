@@ -1,5 +1,8 @@
 ﻿namespace UDPCommunication.Models.DomainModels
 {
+    /// <summary>
+    /// Database model for UDP transactions. This model is mapped by hibernate
+    /// </summary>
     public class UDPLog
     {
         public virtual Guid Id { get; set; }

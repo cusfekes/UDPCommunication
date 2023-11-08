@@ -5,6 +5,9 @@ using UDPCommunication.Service.Interfaces;
 
 namespace UDPCommunication.Service.Services
 {
+    /// <summary>
+    /// Defines service implementation for UDP database transactions
+    /// </summary>
     public class UDPLogService : IUDPLogService
     {
         private readonly IUDPLogRepository _udpLogRepository;

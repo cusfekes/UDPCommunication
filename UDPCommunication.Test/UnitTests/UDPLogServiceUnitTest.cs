@@ -9,6 +9,9 @@ using UDPCommunication.Service.Interfaces;
 
 namespace UDPCommunication.Test.UnitTests
 {
+    /// <summary>
+    /// Defines unit test methods for UDP database transactions
+    /// </summary>
     [TestClass]
     public class UDPLogServiceUnitTest : BaseUnitTest
     {

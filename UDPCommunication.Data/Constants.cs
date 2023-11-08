@@ -1,5 +1,8 @@
 ﻿namespace UDPCommunication.Data
 {
+    /// <summary>
+    /// Constants variables for database queries and exception messages
+    /// </summary>
     public class Constants
     {
         // Query constants

@@ -3,6 +3,9 @@ using UDPCommunication.Models.DomainModels;
 
 namespace UDPCommunication.Data.Interfaces
 {
+    /// <summary>
+    /// Interface for the UDP log database operations
+    /// </summary>
     public interface IUDPLogRepository
     {
         OperationResult<List<UDPLog>> GetAllItems();
