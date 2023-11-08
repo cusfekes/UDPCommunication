@@ -23,7 +23,7 @@ namespace UDPCommunication.Data.Repository
                     using (ITransaction transaction = session.BeginTransaction())
                     {
                         ISQLQuery query = session.CreateSQLQuery(Constants.DELETE_STATEMENT_QUERY).AddEntity(typeof(UDPLog));
-                        query.SetParameter("Id", itemId);
+                        query.SetParameter("Id", itemId.ToString());
                         int exec = query.ExecuteUpdate();
                         transaction.Commit();
                         result.SetSuccessMode(exec == 1);

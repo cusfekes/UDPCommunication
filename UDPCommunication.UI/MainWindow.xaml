@@ -33,15 +33,15 @@
                         <RowDefinition Height="45"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Grid.Column="0">Hedef IP Adresi</Label>
-                    <TextBox x:Name="txtSourceIP" Grid.Row="1" Grid.Column="0" MaxLength="15"></TextBox>
+                    <TextBox x:Name="txtSourceIP" Grid.Row="1" Grid.Column="0" MaxLength="50"></TextBox>
                     <Label Grid.Row="2" Grid.Column="0">Hedef Port Numarası</Label>
-                    <TextBox x:Name="txtSourcePort" Grid.Row="3" Grid.Column="0" MaxLength="10"></TextBox>
+                    <TextBox x:Name="txtSourcePort" Grid.Row="3" Grid.Column="0" MaxLength="5"></TextBox>
                     <Button x:Name="btnListen" Grid.Row="4" Grid.Column="0" Width="70" Height="35" HorizontalAlignment="Right" Click="btnListen_Click">Bağlan</Button>
 
                     <Label Grid.Row="5" Grid.Column="0">Kaynak IP Adresi</Label>
-                    <TextBox x:Name="txtDestIP" Grid.Row="6" Grid.Column="0" MaxLength="15"></TextBox>
+                    <TextBox x:Name="txtDestIP" Grid.Row="6" Grid.Column="0" MaxLength="50"></TextBox>
                     <Label Grid.Row="7" Grid.Column="0">Kaynak Port Numarası</Label>
-                    <TextBox x:Name="txtDestPort" Grid.Row="8" Grid.Column="0" MaxLength="10"></TextBox>
+                    <TextBox x:Name="txtDestPort" Grid.Row="8" Grid.Column="0" MaxLength="5"></TextBox>
                     <Label Grid.Row="9" Grid.Column="0">Mesaj Metni</Label>
                     <TextBox x:Name="txtMessage" Grid.Row="10" Grid.Column="0" MaxLength="255"></TextBox>
                     <Button x:Name="btnSend" Grid.Row="11" Grid.Column="0" Width="70" Height="35" HorizontalAlignment="Right" Click="btnSend_Click">Gönder</Button>
@@ -72,13 +72,13 @@
                         <Button x:Name="btnDelete" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Right" Width="100" Height="30" VerticalAlignment="Top" Click="btnDelete_Click">Seçili Öğeyi Sil</Button>
                     </Grid>
 
-                    <DataGrid Name="gridSource" IsReadOnly="True" SelectionMode="Single" Grid.Row="1" Grid.Column="0" Margin="5">
+                    <DataGrid Name="gridSource" IsReadOnly="True" SelectionMode="Single" Grid.Row="1" Grid.Column="0" Margin="5" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF989393">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Tarih" Binding="{Binding LogDate}" Width="0.20*"/>
-                            <DataGridTextColumn Header="Ip Adresi" Binding="{Binding IpAddress}" Width="0.20*"/>
-                            <DataGridTextColumn Header="Port No" Binding="{Binding PortNumber}" Width="0.20*"/>
-                            <DataGridTextColumn Header="Mesaj Yönü" Binding="{Binding LogDirection}" Width="0.20*"/>
-                            <DataGridTextColumn Header="Mesaj İçeriği" Binding="{Binding Message}" Width="0.20*"/>
+                            <DataGridTextColumn Header="Tarih" Binding="{Binding LogDate, StringFormat=\{0:dd.MM.yyyy\}}" Width="0.17*"/>
+                            <DataGridTextColumn Header="Ip Adresi" Binding="{Binding IpAddress}" Width="0.17*"/>
+                            <DataGridTextColumn Header="Port No" Binding="{Binding PortNumber}" Width="0.17*"/>
+                            <DataGridTextColumn Header="Mesaj Yönü" Binding="{Binding LogDirection}" Width="0.17*"/>
+                            <DataGridTextColumn Header="Mesaj İçeriği" Binding="{Binding Message}" Width="0.32*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

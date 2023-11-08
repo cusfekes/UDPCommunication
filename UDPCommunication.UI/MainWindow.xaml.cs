@@ -139,12 +139,16 @@ namespace UDPCommunication.UI
                 MessageBox.Show("Silmek istediğiniz öğeyi seçiniz");
                 return;
             }
-            UDPLog udpLog = (UDPLog)gridSource.SelectedItem;
-            OperationResult<bool> result = udpLogService.DeleteItem(udpLog.Id);
-            if (result.Success)
-                LoadUDPMessages();
-            else
-                MessageBox.Show(result.Message);
+            MessageBoxResult dialogResult = MessageBox.Show("Seçili öğeyi silmek istiyor musunuz?", "Uyarı", MessageBoxButton.YesNo);
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                UDPLog udpLog = (UDPLog)gridSource.SelectedItem;
+                OperationResult<bool> result = udpLogService.DeleteItem(udpLog.Id);
+                if (result.Success)
+                    LoadUDPMessages();
+                else
+                    MessageBox.Show(result.Message);
+            }
         }
 
         private void btnFilter_Click(object sender, RoutedEventArgs e)
