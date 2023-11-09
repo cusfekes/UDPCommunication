@@ -3,7 +3,7 @@
 namespace UDPCommunication.Service.Interfaces
 {
     /// <summary>
-    /// Interface for Crypto operations using SHA-256
+    /// Interface for Crypto operations using SHA-256 algorithm
     /// </summary>
     public interface ICryptoService
     {
