@@ -25,9 +25,9 @@ namespace UDPCommunication.UI
 
             ServiceCollection serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
-
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
+            // Start application from main window
             var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
         }
@@ -37,6 +37,7 @@ namespace UDPCommunication.UI
             // Inject services to application by using dependency injection
             services.AddScoped<IUDPLogRepository, UDPLogRepository>();
             services.AddScoped<IUDPLogService, UDPLogService>();
+            services.AddScoped<IUDPService, UDPService>();
             services.AddScoped<ICryptoService, CryptoService>();
             services.AddTransient(typeof(MainWindow));
         }

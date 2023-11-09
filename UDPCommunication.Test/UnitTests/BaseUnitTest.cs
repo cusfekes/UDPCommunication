@@ -20,9 +20,11 @@ namespace UDPCommunication.Test.UnitTests
 
         private void LoadServices()
         {
+            // Add services to the application
             ServiceCollection serviceCollection = new ServiceCollection();
             serviceCollection.AddScoped<IUDPLogRepository, UDPLogRepository>();
             serviceCollection.AddScoped<IUDPLogService, UDPLogService>();
+            serviceCollection.AddScoped<IUDPService, UDPService>();
             serviceCollection.AddScoped<ICryptoService, CryptoService>();
             serviceProvider = serviceCollection.BuildServiceProvider();
         }

@@ -30,6 +30,7 @@ namespace UDPCommunication.UI.Utils
                 isPortInRange = false;
             }
 
+            // If every input is valid, create endpoint object
             if (isIpValid && isPortValid && isPortInRange)
             {
                 IPEndPoint endPoint = new IPEndPoint(ipAdress, portNumber);

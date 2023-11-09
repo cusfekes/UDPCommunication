@@ -15,6 +15,7 @@ namespace UDPCommunication.Test.UnitTests
     [TestClass]
     public class UDPLogServiceUnitTest : BaseUnitTest
     {
+        // Define an id to save and delete UDP log from database
         private Guid udpId = Guid.NewGuid();
 
         [TestMethod]

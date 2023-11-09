@@ -16,11 +16,11 @@ namespace UDPCommunication.Service.Services
         // This event is fired while sending messages or incoming messages
         public event EventHandler<UDPPacketArgs> udpMessageFired;
 
-        private UdpClient udpClient;
+        private UdpClient _udpClient;
 
-        public bool isListening;
+        private bool _isListening;
 
-        public bool isMessageSent;
+        private bool _isMessageSent;
 
         public async Task SendMessageAsync(IPEndPoint endPoint, string message)
         {
@@ -28,16 +28,18 @@ namespace UDPCommunication.Service.Services
             using UdpClient socket = new UdpClient();
             var data = Encoding.UTF8.GetBytes(message);
             socket.Send(data, data.Length, endPoint);
-            isMessageSent = true;
+            SetMessageSent(true);
+
+            // Fire event to catch the message from main window
             udpMessageFired?.Invoke(this, new UDPPacketArgs(new UDPLog(message, DateTime.Now, endPoint.Address.ToString(), endPoint.Port, UDPLogDirectionEnum.Sent.ToString())));
         }
 
         public async Task StartListening(IPEndPoint endPoint)
         {
             // Start to listening given IP and port number
-            udpClient = new UdpClient();
-            udpClient.Client.Bind(endPoint);
-            isListening = true;
+            _udpClient = new UdpClient();
+            _udpClient.Client.Bind(endPoint);
+            SetListening(true);
             await ListenToUdp(endPoint);
         }
 
@@ -48,27 +50,49 @@ namespace UDPCommunication.Service.Services
                 while (true)
                 {
                     // Catch the message while listening
-                    UdpReceiveResult datagram = await udpClient.ReceiveAsync();
+                    UdpReceiveResult datagram = await _udpClient.ReceiveAsync();
                     string message = Encoding.UTF8.GetString(datagram.Buffer);
                     IPEndPoint from = datagram.RemoteEndPoint;
+
+                    // Fire event to catch the message from main window
                     udpMessageFired?.Invoke(this, new UDPPacketArgs(new UDPLog(message, DateTime.Now, endPoint.Address.ToString(), endPoint.Port, UDPLogDirectionEnum.Receive.ToString())));
                 }
             }
             catch
             {
-                if (udpClient?.Client != null)
-                    udpClient?.Client?.Close();
-                udpClient?.Dispose();
+                if (_udpClient?.Client != null)
+                    _udpClient?.Client?.Close();
+                _udpClient?.Dispose();
             }
         }
 
         public async Task StopListening()
         {
             // Stop to listening given IP and port number
-            if (udpClient.Client != null)
-                udpClient.Client.Close();
-            udpClient.Dispose();
-            isListening = false;
+            if (_udpClient.Client != null)
+                _udpClient.Client.Close();
+            _udpClient.Dispose();
+            SetListening(false);
+        }
+
+        public bool IsListening()
+        {
+            return _isListening;
+        }
+
+        public void SetListening(bool isListening)
+        {
+            _isListening = isListening;
+        }
+
+        public bool IsMessageSent()
+        {
+            return _isMessageSent;
+        }
+
+        public void SetMessageSent(bool isMessageSent)
+        {
+            _isMessageSent = isMessageSent;
         }
     }
 }

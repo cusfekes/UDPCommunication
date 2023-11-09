@@ -7,7 +7,6 @@ using UDPCommunication.Models.CustomEventArgs;
 using UDPCommunication.Models.DomainModels;
 using UDPCommunication.Models.Enums;
 using UDPCommunication.Service.Interfaces;
-using UDPCommunication.Service.Services;
 using UDPCommunication.UI.Utils;
 
 namespace UDPCommunication.UI
@@ -19,9 +18,9 @@ namespace UDPCommunication.UI
     {
         private readonly ICryptoService cryptoService;
         private readonly IUDPLogService udpLogService;
-        private UDPService udpService;
+        private readonly IUDPService udpService;
 
-        public MainWindow(IUDPLogService _udpLogService, ICryptoService _cryptoService)
+        public MainWindow(IUDPLogService _udpLogService, ICryptoService _cryptoService, IUDPService _udpService)
         {
             InitializeComponent();
             // Define example ip and port values
@@ -33,7 +32,7 @@ namespace UDPCommunication.UI
             btnListen.Tag = UDPListenStatusEnum.NotListening;
 
             udpLogService = _udpLogService;
-            udpService = new UDPService();
+            udpService = _udpService;
             cryptoService = _cryptoService;
             udpService.udpMessageFired += UdpMessageFired;
             LoadUDPMessages();

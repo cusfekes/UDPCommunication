@@ -22,6 +22,7 @@ namespace UDPCommunication.Data.Repository
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
+                        // Run query in active session and commit changes
                         ISQLQuery query = session.CreateSQLQuery(Constants.DELETE_STATEMENT_QUERY).AddEntity(typeof(UDPLog));
                         query.SetParameter("Id", itemId.ToString());
                         int exec = query.ExecuteUpdate();
@@ -50,6 +51,7 @@ namespace UDPCommunication.Data.Repository
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
+                        // Run query in active session
                         List<UDPLog> source = session.CreateSQLQuery(Constants.GET_ALL_STATEMENT_QUERY).AddEntity(typeof(UDPLog)).List<UDPLog>().ToList();
                         result.SetSuccessMode(source);
                     }
@@ -75,6 +77,7 @@ namespace UDPCommunication.Data.Repository
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
+                        // Run query in active session
                         ISQLQuery query = session.CreateSQLQuery(Constants.GET_BY_DATE_STATEMENT_QUERY).AddEntity(typeof(UDPLog));
                         query.SetParameter("StartDate", startDate);
                         query.SetParameter("EndDate", endDate);
@@ -103,6 +106,7 @@ namespace UDPCommunication.Data.Repository
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
+                        // Run query in active session and commit changes
                         ISQLQuery query = session.CreateSQLQuery(Constants.INSERT_STATEMENT_QUERY).AddEntity(typeof(UDPLog));
                         query.SetParameter("Id", item.Id);
                         query.SetParameter("Message", item.Message);

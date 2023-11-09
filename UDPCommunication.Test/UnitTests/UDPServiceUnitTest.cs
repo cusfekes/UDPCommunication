@@ -1,5 +1,7 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
+using UDPCommunication.Service.Interfaces;
 using UDPCommunication.Service.Services;
 
 namespace UDPCommunication.Test.UnitTests
@@ -8,10 +10,12 @@ namespace UDPCommunication.Test.UnitTests
     /// Defines unit test methods for UDP listening and sending messages
     /// </summary>
     [TestClass]
-    public class UDPServiceUnitTest
+    public class UDPServiceUnitTest : BaseUnitTest
     {
+        // Example message to use in unit test steps
         private const string MESSAGE = "This is a unit test message";
 
+        // Example IP adress and port numbers to listening or sending messages with UDP protocol
         private IPAddress SOURCE_IP = IPAddress.Parse("127.0.0.1");
         private const int SOURCE_PORT = 9090;
 
@@ -21,32 +25,32 @@ namespace UDPCommunication.Test.UnitTests
         [TestMethod]
         public void UDPStartToListenTest()
         {
-            UDPService udpService = new UDPService();
+            IUDPService udpService = serviceProvider.GetRequiredService<IUDPService>();
             IPEndPoint endPoint = new IPEndPoint(SOURCE_IP, SOURCE_PORT);
             udpService.StartListening(endPoint).ConfigureAwait(true);
-            Assert.IsTrue(udpService.isListening);
+            Assert.IsTrue(udpService.IsListening());
         }
 
         [TestMethod]
         public void UDPStopToListenTest()
         {
-            UDPService udpService = new UDPService();
+            IUDPService udpService = serviceProvider.GetRequiredService<IUDPService>();
             IPEndPoint endPoint = new IPEndPoint(SOURCE_IP, SOURCE_PORT);
             udpService.StartListening(endPoint).ConfigureAwait(true);
             udpService.StopListening().ConfigureAwait(true);
-            Assert.IsFalse(udpService.isListening);
+            Assert.IsFalse(udpService.IsListening());
         }
 
         [TestMethod]
         public void UDPSendMessageTest()
         {
-            UDPService udpService = new UDPService();
+            IUDPService udpService = serviceProvider.GetRequiredService<IUDPService>();
             IPEndPoint endPoint = new IPEndPoint(DEST_IP, DEST_PORT);
-            udpService.isMessageSent = false;
+            udpService.SetMessageSent(false);
             CryptoService cryptoService = new CryptoService();
             string encryptedMessage = cryptoService.Encrypt(MESSAGE).Result;
             udpService.SendMessageAsync(endPoint, encryptedMessage).ConfigureAwait(true);
-            Assert.IsTrue(udpService.isMessageSent);
+            Assert.IsTrue(udpService.IsMessageSent());
         }
     }
 }

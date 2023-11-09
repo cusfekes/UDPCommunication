@@ -11,7 +11,10 @@ namespace UDPCommunication.Test.UnitTests
     [TestClass]
     public class CryptoServiceUnitTest : BaseUnitTest
     {
+        // Example message to use in unit test steps
         private const string MESSAGE = "This is a unit test message";
+
+        // Encrypted version of the example message with using SHA 256 algorithm
         private const string ENCRYPTED_MESSAGE = "tIALhJ43t3U//XkVdD8d1Op+gK5tb2NAUneV3Lvuu+0=";
 
         [TestMethod]

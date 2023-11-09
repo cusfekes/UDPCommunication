@@ -7,6 +7,7 @@ namespace UDPCommunication.Models.CustomEventArgs
     /// </summary>
     public class UDPPacketArgs : EventArgs
     {
+        // The data is carried by the event which is fired from UDPService
         private UDPLog Data { get; set; }
 
         public UDPPacketArgs(UDPLog data)
