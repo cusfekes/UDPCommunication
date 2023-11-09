@@ -170,7 +170,6 @@ namespace UDPCommunication.UI
                 gridSource.Items.Clear();
                 foreach (UDPLog log in filterList)
                     gridSource.Items.Add(log);
-
             }
             else
                 MessageBox.Show(result.Message);
