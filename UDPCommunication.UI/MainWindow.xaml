@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UDPCommunication.UI"
         mc:Ignorable="d"
         Icon="Icon.ico"
-        Title="UDP Sender / Receiver" Height="550" Width="950">
+        Title="UDP Mesaj Alıcı / Gönderici" Height="550" Width="950">
     <Grid>
         <DockPanel LastChildFill="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -42,7 +42,7 @@
                     <TextBox x:Name="txtDestIP" Grid.Row="6" Grid.Column="0" MaxLength="50"></TextBox>
                     <Label Grid.Row="7" Grid.Column="0">Kaynak Port Numarası</Label>
                     <TextBox x:Name="txtDestPort" Grid.Row="8" Grid.Column="0" MaxLength="5"></TextBox>
-                    <Label Grid.Row="9" Grid.Column="0">Mesaj Metni</Label>
+                    <Label Grid.Row="9" Grid.Column="0">Mesaj İçeriği</Label>
                     <TextBox x:Name="txtMessage" Grid.Row="10" Grid.Column="0" MaxLength="255"></TextBox>
                     <Button x:Name="btnSend" Grid.Row="11" Grid.Column="0" Width="70" Height="35" HorizontalAlignment="Right" Click="btnSend_Click">Gönder</Button>
                 </Grid>
