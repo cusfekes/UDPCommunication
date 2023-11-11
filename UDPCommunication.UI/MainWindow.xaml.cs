@@ -81,7 +81,7 @@ namespace UDPCommunication.UI
 
         private async void StartListen()
         {
-            // Starts to listening
+            // Start to listening
             OperationResult<IPEndPoint> result = UDPUtil.CreateIPEndPoint(txtSourceIP.Text.Trim(), txtSourcePort.Text.Trim());
             if (result.Success)
             {
@@ -100,7 +100,7 @@ namespace UDPCommunication.UI
 
         private async void StopListen()
         {
-            //Stops to listening
+            // Stop to listening
             await udpService.StopListening();
             connectionTimer.Stop();
             btnListen.Content = "Bağlan";
