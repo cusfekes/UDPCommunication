@@ -7,7 +7,7 @@ namespace UDPCommunication.UI.Utils
     /// <summary>
     /// Defines helper methods for UDP operations
     /// </summary>
-    public class UDPUtil
+    public static class UDPUtil
     {
         public static OperationResult<IPEndPoint> CreateIPEndPoint(string ip, string port)
         {

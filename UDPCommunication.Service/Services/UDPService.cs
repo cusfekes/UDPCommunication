@@ -1,5 +1,7 @@
-﻿using System.Net;
+﻿using System.ComponentModel;
+using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using UDPCommunication.Models.CustomEventArgs;
 using UDPCommunication.Models.DomainModels;
@@ -31,7 +33,7 @@ namespace UDPCommunication.Service.Services
             SetMessageSent(true);
 
             // Fire event to catch the message from main window
-            udpMessageFired?.Invoke(this, new UDPPacketArgs(new UDPLog(message, DateTime.Now, endPoint.Address.ToString(), endPoint.Port, UDPLogDirectionEnum.Sent.ToString())));
+            udpMessageFired?.Invoke(this, new UDPPacketArgs(new UDPLog(message, DateTime.Now, endPoint.Address.ToString(), endPoint.Port, GetLogDirectionFriendlyDescription(UDPLogDirectionEnum.Sent))));
         }
 
         public async Task StartListening(IPEndPoint endPoint)
@@ -55,7 +57,7 @@ namespace UDPCommunication.Service.Services
                     IPEndPoint from = datagram.RemoteEndPoint;
 
                     // Fire event to catch the message from main window
-                    udpMessageFired?.Invoke(this, new UDPPacketArgs(new UDPLog(message, DateTime.Now, endPoint.Address.ToString(), endPoint.Port, UDPLogDirectionEnum.Receive.ToString())));
+                    udpMessageFired?.Invoke(this, new UDPPacketArgs(new UDPLog(message, DateTime.Now, endPoint.Address.ToString(), endPoint.Port, GetLogDirectionFriendlyDescription(UDPLogDirectionEnum.Receive))));
                 }
             }
             catch
@@ -64,6 +66,26 @@ namespace UDPCommunication.Service.Services
                     _udpClient?.Client?.Close();
                 _udpClient?.Dispose();
             }
+        }
+
+        private string GetLogDirectionFriendlyDescription(UDPLogDirectionEnum value)
+        {
+            // Read the user friendly description attribute of enum value
+            string name = Enum.GetName(typeof(UDPLogDirectionEnum), value);
+            if (name != null)
+            {
+                FieldInfo field = typeof(UDPLogDirectionEnum).GetField(name);
+                if (field != null)
+                {
+                    DescriptionAttribute attr =
+                           Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
+                    if (attr != null)
+                    {
+                        return attr.Description;
+                    }
+                }
+            }
+            return value.ToString();
         }
 
         public async Task StopListening()

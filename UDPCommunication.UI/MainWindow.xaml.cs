@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Windows;
+using System.Windows.Threading;
 using UDPCommunication.Models;
 using UDPCommunication.Models.CustomEventArgs;
 using UDPCommunication.Models.DomainModels;
@@ -19,6 +20,8 @@ namespace UDPCommunication.UI
         private readonly ICryptoService cryptoService;
         private readonly IUDPLogService udpLogService;
         private readonly IUDPService udpService;
+        private DispatcherTimer connectionTimer;
+        private int seconds = 0;
 
         public MainWindow(IUDPLogService _udpLogService, ICryptoService _cryptoService, IUDPService _udpService)
         {
@@ -34,6 +37,12 @@ namespace UDPCommunication.UI
             udpLogService = _udpLogService;
             udpService = _udpService;
             cryptoService = _cryptoService;
+
+            // Create timer object
+            connectionTimer = new DispatcherTimer();
+            connectionTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            connectionTimer.Interval = new TimeSpan(0, 0, 1);
+
             udpService.udpMessageFired += UdpMessageFired;
             LoadUDPMessages();
         }
@@ -51,6 +60,13 @@ namespace UDPCommunication.UI
             }
             else
                 MessageBox.Show(result.Message);
+        }
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            seconds++;
+            TimeSpan time = TimeSpan.FromSeconds(seconds);
+            lblTimer.Content = "Bağlantı Süresi: " + time.ToString();
         }
 
         private void btnListen_Click(object sender, RoutedEventArgs e)
@@ -71,6 +87,7 @@ namespace UDPCommunication.UI
             {
                 btnListen.Tag = UDPListenStatusEnum.Listening;
                 btnListen.Content = "Dinleniyor...";
+                connectionTimer.Start();
                 await udpService.StartListening(result.Result);
             }
             else
@@ -85,6 +102,7 @@ namespace UDPCommunication.UI
         {
             //Stops to listening
             await udpService.StopListening();
+            connectionTimer.Stop();
             btnListen.Content = "Bağlan";
             btnListen.Tag = UDPListenStatusEnum.NotListening;
         }

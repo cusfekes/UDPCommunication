@@ -29,19 +29,20 @@
                         <RowDefinition Height="30"></RowDefinition>
                         <RowDefinition Height="25"></RowDefinition>
                         <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="140"></RowDefinition>
+                        <RowDefinition Height="150"></RowDefinition>
                         <RowDefinition Height="45"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Grid.Column="0">Hedef IP Adresi</Label>
-                    <TextBox x:Name="txtSourceIP" Grid.Row="1" Grid.Column="0" MaxLength="50"></TextBox>
+                    <TextBox x:Name="txtSourceIP" Grid.Row="1" Grid.Column="0" MaxLength="50" VerticalContentAlignment="Center"></TextBox>
                     <Label Grid.Row="2" Grid.Column="0">Hedef Port Numarası</Label>
-                    <TextBox x:Name="txtSourcePort" Grid.Row="3" Grid.Column="0" MaxLength="5"></TextBox>
+                    <TextBox x:Name="txtSourcePort" Grid.Row="3" Grid.Column="0" MaxLength="5" VerticalContentAlignment="Center"></TextBox>
+                    <Label x:Name="lblTimer" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">Bağlantı Süresi: 00:00:00</Label>
                     <Button x:Name="btnListen" Grid.Row="4" Grid.Column="0" Width="70" Height="35" HorizontalAlignment="Right" Click="btnListen_Click">Bağlan</Button>
 
                     <Label Grid.Row="5" Grid.Column="0">Kaynak IP Adresi</Label>
-                    <TextBox x:Name="txtDestIP" Grid.Row="6" Grid.Column="0" MaxLength="50"></TextBox>
+                    <TextBox x:Name="txtDestIP" Grid.Row="6" Grid.Column="0" MaxLength="50" VerticalContentAlignment="Center"></TextBox>
                     <Label Grid.Row="7" Grid.Column="0">Kaynak Port Numarası</Label>
-                    <TextBox x:Name="txtDestPort" Grid.Row="8" Grid.Column="0" MaxLength="5"></TextBox>
+                    <TextBox x:Name="txtDestPort" Grid.Row="8" Grid.Column="0" MaxLength="5" VerticalContentAlignment="Center"></TextBox>
                     <Label Grid.Row="9" Grid.Column="0">Mesaj İçeriği</Label>
                     <TextBox x:Name="txtMessage" Grid.Row="10" Grid.Column="0" MaxLength="255"></TextBox>
                     <Button x:Name="btnSend" Grid.Row="11" Grid.Column="0" Width="70" Height="35" HorizontalAlignment="Right" Click="btnSend_Click">Gönder</Button>
@@ -84,6 +85,5 @@
                 </Grid>
             </Grid>
         </DockPanel>
-
     </Grid>
 </Window>

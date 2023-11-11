@@ -1,17 +1,3 @@
--- Database: UDP
-
--- DROP DATABASE IF EXISTS "UDP";
-
-CREATE DATABASE "UDP"
-    WITH
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'Turkish_Turkey.1254'
-    LC_CTYPE = 'Turkish_Turkey.1254'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1
-    IS_TEMPLATE = False;
-
 -- Table: public.UDPLog
 
 -- DROP TABLE IF EXISTS public."UDPLog";
