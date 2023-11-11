@@ -16,8 +16,6 @@ namespace UDPCommunication.Test.UnitTests
     public class UDPLogServiceUnitTest : BaseUnitTest
     {
         // Define an id to save and delete UDP log from database
-        private Guid udpId = Guid.NewGuid();
-
         [TestMethod]
         public void GetAllItemsTest()
         {
@@ -28,7 +26,8 @@ namespace UDPCommunication.Test.UnitTests
                 List<UDPLog> list = result.Result;
                 Assert.IsNotNull(list);
             }
-            Assert.Fail(result.Message);
+            else
+                Assert.Fail(result.Message);
         }
 
         [TestMethod]
@@ -41,13 +40,48 @@ namespace UDPCommunication.Test.UnitTests
                 List<UDPLog> list = result.Result;
                 Assert.IsNotNull(list);
             }
-            Assert.Fail(result.Message);
+            else
+                Assert.Fail(result.Message);
         }
 
         [TestMethod]
         public void SaveItemTest()
         {
             IUDPLogService udpLogService = serviceProvider.GetRequiredService<IUDPLogService>();
+
+            Guid udpId = Guid.NewGuid();
+            UDPLog udpLog = CreateTestItem(udpId);
+            OperationResult<bool> result = udpLogService.SaveItem(udpLog);
+            udpLogService.DeleteItem(udpId);
+            if (result.Success)
+            {
+                bool execution = result.Result;
+                Assert.IsTrue(execution);
+            }
+            else
+                Assert.Fail(result.Message);
+        }
+
+        [TestMethod]
+        public void DeleteItemTest()
+        {
+            IUDPLogService udpLogService = serviceProvider.GetRequiredService<IUDPLogService>();
+
+            Guid udpId = Guid.NewGuid();
+            UDPLog udpLog = CreateTestItem(udpId);
+            udpLogService.SaveItem(udpLog);
+            OperationResult<bool> result = udpLogService.DeleteItem(udpId);
+            if (result.Success)
+            {
+                bool execution = result.Result;
+                Assert.IsTrue(execution);
+            }
+            else
+                Assert.Fail(result.Message);
+        }
+
+        private UDPLog CreateTestItem(Guid udpId)
+        {
             UDPLog item = new UDPLog();
             Guid id = udpId;
             item.Id = id;
@@ -56,26 +90,7 @@ namespace UDPCommunication.Test.UnitTests
             item.IpAddress = "127.0.0.1";
             item.PortNumber = 9090;
             item.LogDirection = UDPLogDirectionEnum.Sent.ToString();
-            OperationResult<bool> result = udpLogService.SaveItem(item);
-            if (result.Success)
-            {
-                bool execution = result.Result;
-                Assert.IsTrue(execution);
-            }
-            Assert.Fail(result.Message);
-        }
-
-        [TestMethod]
-        public void DeleteItemTest()
-        {
-            IUDPLogService udpLogService = serviceProvider.GetRequiredService<IUDPLogService>();
-            OperationResult<bool> result = udpLogService.DeleteItem(udpId);
-            if (result.Success)
-            {
-                bool execution = result.Result;
-                Assert.IsTrue(execution);
-            }
-            Assert.Fail(result.Message);
+            return item;
         }
     }
 }
